@@ -4,6 +4,8 @@ import { Button, TextField, Checkbox } from "@material-ui/core";
 import Toggle from './Toggle';
 import Modal from './Modal';
 import Home from './Home';
+import axios from 'axios';
+
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,7 @@ export default class Form extends React.Component {
     this.state = {
       firstName: "",
       lastName: "",
-      phone: "",
+      email: "",
       showModal: false
     };
 
@@ -23,24 +25,47 @@ export default class Form extends React.Component {
 
 
 
-  handleSubmit = () => {
+  handleInputs = () => {
     this.setState({
       firstName: document.getElementById("firstName").value,
       lastName: document.getElementById("lastName").value,
       email: document.getElementById("email").value,
     });
-    console.log(this.state.firstName);
+    
+
     
   };
 
-  handleModal = () =>{
-    this.state({
-      showModal: true
+  handleSubmit = () =>{
+  const transferData = {
+    firstName: this.state.firstName,
+    lastName: this.state.lastName,
+    email: this.state.email
+  }
+
+    axios({
+      method: 'post',
+      url: 'api/sendMail',
+      data: transferData
+    }).then((response)=>{
+      if(response.data.status === 'success'){
+        this.setState({showModal: true})
+        this.resetForm();
+      }else if(response.data.status === 'fail'){
+        alert('Message failed to send. Please try again.'); 
+      }
     })
   }
+
+
+
   handleClear = ()=>{
     window.location = "/";
+    this.setState({firstName: '', lastName: '', email: ''})
   }
+
+
+
   render() {
 
     return (
@@ -49,12 +74,14 @@ export default class Form extends React.Component {
           <div id="leftImage" />
           <form
             id="signInForm"
-            action="/info"
+            action="https://localhost:3002/api/sendMail"
             name="myForm"
-            onSubmit={this.handleModal}
-            onChange={this.handleSubmit}
+            onSubmit={this.handleSubmit}
+            onChange={this.handleInputs}
             className="form"
           >
+
+
             <i className="fas fa-3x fa-user" />
             <h1 style={{ paddingBottom: "10px", paddingTop: "10px" }}>
               Sign Up
@@ -66,6 +93,7 @@ export default class Form extends React.Component {
                 label="First Name"
                 variant="outlined"
                 style={{ width: "400px" }}
+                value={firstName}
               />
             </div>
             <div style={{ margin: "10px" }}>
@@ -74,6 +102,7 @@ export default class Form extends React.Component {
                 label="Last Name"
                 style={{ width: "400px" }}
                 variant="outlined"
+                value={lastName}
               />
             </div>
             <div style={{ margin: "10px" }}>
@@ -82,9 +111,9 @@ export default class Form extends React.Component {
                 label="Email"
                 variant="outlined"
                 style={{ width: "400px" }}
-              />
+                value={email}
+              />          
             </div>
-
                 
                 
                 <Checkbox color="primary" required /><label>Agree To Terms & Conditions</label>
@@ -92,16 +121,13 @@ export default class Form extends React.Component {
                 &nbsp;
 
 
+                {/* Modal Toggled Window */}
 
-                
               <Toggle render={({on,toggle})=>(
-                
                 
                 <div>
                     { on && <Modal handleClear={this.handleClear} toggle={toggle} email={this.state.email} firstName={this.state.firstName} /> }
-                  
-                  
-                
+        
                           <Button onClick={toggle} variant="contained" color="primary">
                             Sign Up
                           </Button>
@@ -113,9 +139,6 @@ export default class Form extends React.Component {
               />
                           
           </form>
-
-
-
 
     
 <Home />
