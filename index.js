@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express'),
 app = express(),
-PORT = process.env.PORT || 5000,
+PORT = process.env.PORT || 80,
 cors = require('cors');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
@@ -19,9 +19,11 @@ app.use(express.static(path.join(__dirname, '/build')));
 
 
 app.get('*', (req,res) =>{
+    // in production use path /build/index.html
     if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.join(__dirname+'build/index.html'));
     }
+    //otherwise use index.html in main directory
     res.sendFile(path.join(__dirname,'index.html'));
 });
 
