@@ -11,7 +11,7 @@ function App() {
     <React.Fragment>
             <BrowserRouter>
               <Switch>
-                <Route exact path="immense-brook-68010.herokuapp.com/" component={Form} />
+                <Route exact path="/" component={Form} />
                 <Route exact path="/terms" component={Terms} />
                 </Switch>
             </BrowserRouter>

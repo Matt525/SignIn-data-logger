@@ -56,7 +56,7 @@ export default class Form extends React.Component{
                          
                             
 
-            $.post('http://localhost:5000/sendMail',transferData,()=>{console.log("POST Received")})
+            $.post('/sendMail',transferData,()=>{console.log("POST Received")})
       }
         
                             handleClear = ()=>{

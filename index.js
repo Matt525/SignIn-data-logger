@@ -15,17 +15,18 @@ app.listen(PORT,()=>{
     console.log(`Server started on port ${PORT}`);
 })
 
-            // POST ROUTE
-            app.post('immense-brook-68010.herokuapp.com/',(req,res)=>{
-                if(process.env.NODE_ENV === 'production'){
-                    res.sendFile(path.join(__dirname,'build/index.html'));
-                }
-                else{
-                 res.sendFile(path.join(__dirname,'public','index.html'))
-                }
-            
-            })
+app.use(express.static(path.join(__dirname, '/build')));
 
+
+app.get('*', (req,res) =>{
+    if(process.env.NODE_ENV === 'production'){
+        res.sendFile(path.join(__dirname+'build/index.html'));
+    }
+});
+
+
+            // POST ROUTE
+     
 app.post('/sendMail',(req,res)=>{
     console.log('Data: ', req.body);
     res.json({Message: "POST Received"});
