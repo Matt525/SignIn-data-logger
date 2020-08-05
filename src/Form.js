@@ -56,7 +56,7 @@ export default class Form extends React.Component{
                          
                             
 
-            $.post('http://immense-brook-68010.herokuapp.com/sendMail',transferData,()=>{console.log("POST Received")})
+            $.post('immense-brook-68010.herokuapp.com/sendMail',transferData,()=>{console.log("POST Received")})
       }
         
                             handleClear = ()=>{
