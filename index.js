@@ -16,7 +16,7 @@ app.listen(PORT,()=>{
 })
 
             // POST ROUTE
-            app.post('/',(req,res)=>{
+            app.post('immense-brook-68010.herokuapp.com/',(req,res)=>{
                 if(process.env.NODE_ENV === 'production'){
                     res.sendFile(path.join(__dirname,'build/index.html'));
                 }
