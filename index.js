@@ -41,7 +41,7 @@ app.post('/sendMail',(req,res)=>{
         service: 'Gmail',
         host: 'smtp.gmail.com',
         port: 587,
-        secure: false,
+        secure: true,
         auth: { 
             user: process.env.EMAIL,
             pass: process.env.PASS
