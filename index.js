@@ -38,11 +38,11 @@ app.post('/sendMail',(req,res)=>{
 
     // Setting up the transport with nodemailer
     let smtpTransport = nodemailer.createTransport({
-        service: 'Gmail',
+        service: 'gmail',
         port: 587,
         auth: { 
-            user: process.env.EMAIL,
-            pass: process.env.PASS
+            user: 'malanstaton@gmail.com',
+            pass: 'Alpine1362'
 
         }
 
